@@ -9,12 +9,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.Repositories.CategoriaRepository;
 import com.example.demo.Repositories.CidadeRepository;
+import com.example.demo.Repositories.ClienteRepository;
+import com.example.demo.Repositories.EnderecoRepository;
 import com.example.demo.Repositories.EstadoRepository;
 import com.example.demo.Repositories.ProdutoRepository;
 import com.example.demo.domain.Categoria;
 import com.example.demo.domain.Cidade;
+import com.example.demo.domain.Cliente;
+import com.example.demo.domain.Endereco;
 import com.example.demo.domain.Estado;
 import com.example.demo.domain.Produto;
+import com.example.demo.domain.enums.TipoCliente;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
@@ -24,12 +29,18 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepository produtorepository;
-	
+
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecorepository;
+	
+	@Autowired
+	private ClienteRepository clienterepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -54,22 +65,32 @@ public class CursomcApplication implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtorepository.saveAll(Arrays.asList(p1, p2, p3));
-		
+
 		Estado est1 = new Estado(null, "Minas Gerais");
-		Estado est2= new Estado(null,"São Paulo");
-		
+		Estado est2 = new Estado(null, "São Paulo");
+
 		Cidade c1 = new Cidade(null, "UmberLandia", est1);
 		Cidade c2 = new Cidade(null, "São Paulo", est2);
-		Cidade c3= new Cidade(null, "Campinas", est2);
-		
-		est1.getCidades().addAll(Arrays.asList(c1));
-		est2.getCidades().addAll(Arrays.asList(c2,c3));
-		
-		estadoRepository.saveAll(Arrays.asList(est1,est2));
-		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
-				
-		
+		Cidade c3 = new Cidade(null, "Campinas", est2);
 
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "Maria@gmail.com", "36378912377", TipoCliente.PESSOAfISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Av Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienterepository.saveAll(Arrays.asList(cli1));
+		enderecorepository.saveAll(Arrays.asList(e1,e2));
+		
+		
 	}
 
 }
