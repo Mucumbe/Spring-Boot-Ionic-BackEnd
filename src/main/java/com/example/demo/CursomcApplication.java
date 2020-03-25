@@ -13,6 +13,7 @@ import com.example.demo.Repositories.CidadeRepository;
 import com.example.demo.Repositories.ClienteRepository;
 import com.example.demo.Repositories.EnderecoRepository;
 import com.example.demo.Repositories.EstadoRepository;
+import com.example.demo.Repositories.ItemPedidoRepository;
 import com.example.demo.Repositories.PagamentoRepository;
 import com.example.demo.Repositories.PedidoRepository;
 import com.example.demo.Repositories.ProdutoRepository;
@@ -21,6 +22,7 @@ import com.example.demo.domain.Cidade;
 import com.example.demo.domain.Cliente;
 import com.example.demo.domain.Endereco;
 import com.example.demo.domain.Estado;
+import com.example.demo.domain.ItemPedido;
 import com.example.demo.domain.Pagamento;
 import com.example.demo.domain.PagamentoComBoleto;
 import com.example.demo.domain.PagamentoComCartao;
@@ -43,18 +45,21 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
-	
+
 	@Autowired
 	private EnderecoRepository enderecorepository;
-	
+
 	@Autowired
 	private ClienteRepository clienterepository;
-	
+
 	@Autowired
-	PedidoRepository  pedidoRepository;
-	
+	PedidoRepository pedidoRepository;
+
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -98,33 +103,43 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Av Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
-		
-		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
-		
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
 		clienterepository.saveAll(Arrays.asList(cli1));
-		enderecorepository.saveAll(Arrays.asList(e1,e2));
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		
+		enderecorepository.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 9:32"), cli1, e2);
-		
+
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
-		
-		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"),
+				null);
 		ped2.setPagamento(pagto2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
 		
-		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
-		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
-		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
-		
-		
-		
-		
-		
-		
+
 	}
 
 }
