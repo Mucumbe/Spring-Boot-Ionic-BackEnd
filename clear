@@ -1,0 +1,113 @@
+[33mcommit f7fd4dd8aaa8a5ba28181dcfa34c6030fd094b9d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Fri Mar 27 20:19:35 2020 +0200
+
+    Listando todas as Categorias com DTO
+
+[33mcommit 73680ca2f2c7e22df81ab9550d2b2b8794e68526[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Fri Mar 27 13:50:12 2020 +0200
+
+    Deletando Uma categoria com delete
+
+[33mcommit 25ca95143f81377ddde7bbcb9b4cd291dd21a62b[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Fri Mar 27 12:46:54 2020 +0200
+
+    actualizando categoria com PUT e outros pequenos ajustis
+
+[33mcommit bdf7cf2976862030bb568d290ead08702711eb57[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Fri Mar 27 11:58:14 2020 +0200
+
+    Inserindo uma nova categoria com post
+
+[33mcommit 3b3e95b0d9d2ae128ca27ce8bd2976b48e3191d1[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Wed Mar 25 21:59:58 2020 +0200
+
+    Atualizacao: utilizando somente JsonIgnore
+
+[33mcommit 984972f35e0fbf9b782d38914007322a4da659ba[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Wed Mar 25 21:38:45 2020 +0200
+
+    Endpoint /pedidos/{id} disponibilizando
+
+[33mcommit 3714470c816aa25f058d56fa83179dbfbb3aea23[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Wed Mar 25 12:16:50 2020 +0200
+
+    ItemPedido e ItemPedidopk
+
+[33mcommit 776aa74cda671d892ce36adf5dd8c4e7abdccfbf[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Tue Mar 24 19:11:59 2020 +0200
+
+    Pedido, estadoPagamento E Pagamento
+
+[33mcommit d0c892737deef4d090651f2ee3442ec4330dc192[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Fri Mar 20 00:38:26 2020 +0200
+
+    end point /clientes/{id} Cliente, seus telefones e seus endereços
+
+[33mcommit 44fd2bd71d694167f5ba066556820c79ae69555f[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Fri Mar 20 00:02:23 2020 +0200
+
+    Cliente Tipo Cliente Telefone E endereco
+
+[33mcommit 5fe7a30c41a936155cad973342f99781c82c5a80[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Thu Mar 19 18:08:28 2020 +0200
+
+    Estado e Cidade
+
+[33mcommit 8814bb13818ecfe931428585572591404aa0d1c2[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Wed Mar 18 23:57:06 2020 +0200
+
+    Ajuste no enfpoint de categoria/{id} erro de excepcao
+
+[33mcommit 693d48832ca2f860c7c6a7eede4b86cc2394552e[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Wed Mar 18 22:34:37 2020 +0200
+
+    produto e associacao muitos para muitos
+
+[33mcommit eed75230981b983835485d49fd01100d72516355[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Tue Mar 17 21:36:15 2020 +0200
+
+    Criando operacao de instaciacao
+
+[33mcommit 13bcbf53da9e612435337431da8809d834841de8[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Tue Mar 17 18:43:32 2020 +0200
+
+    Criando Repository e service para o dominio categoria
+
+[33mcommit 5139f7f06b3af31d35537d0bb3c96b8e7fd6dc2e[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Tue Mar 17 16:42:22 2020 +0200
+
+    Banco de Dados H2 e Criacao Automatica de basede dados
+
+[33mcommit 624dfac8edd1f290a35e8e795353ce64c8e9722a[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Tue Mar 17 16:06:29 2020 +0200
+
+    Testando a primeira classe do dominio
+
+[33mcommit f9fc2732443283568f5585cb2243c145a2e4227e[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Tue Mar 17 08:29:45 2020 +0200
+
+    testando web
+
+[33mcommit 25de188b0f4db47f4239b5881fb84a34d3a5b29a[m
+Author: Mucumbe <Mucumbeblandino@gmail.com>
+Date:   Mon Mar 16 23:17:02 2020 +0200
+
+    Primeira versao criacao do projecto
