@@ -59,7 +59,7 @@ public class ClienteService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Nao é Possivel Excluir porque ha entidades relacionadas");
+			throw new DataIntegrityException("Nao é Possivel Excluir porque ha Pedidos Relacionados relacionadas");
 
 		}
 
@@ -101,7 +101,6 @@ public class ClienteService {
 			cli.getTelefones().add(objDto.getTelefone3());
 		
 		return cli;
-		
 		
 
 	}
