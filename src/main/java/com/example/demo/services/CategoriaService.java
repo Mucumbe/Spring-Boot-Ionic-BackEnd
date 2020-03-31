@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Repositories.CategoriaRepository;
 import com.example.demo.domain.Categoria;
-import com.example.demo.domain.Cliente;
+
 import com.example.demo.dto.CategoriaDTO;
 import com.example.demo.services.exception.DataIntegrityException;
 import com.example.demo.services.exception.ObjectNotFoundException;
