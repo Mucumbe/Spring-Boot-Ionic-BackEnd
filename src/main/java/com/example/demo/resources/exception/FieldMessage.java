@@ -2,7 +2,7 @@ package com.example.demo.resources.exception;
 
 import java.io.Serializable;
 
-public class FielMessage implements Serializable{
+public class FieldMessage implements Serializable{
 
 	/**
 	 * 
@@ -12,11 +12,11 @@ public class FielMessage implements Serializable{
 	private String fielName;
 	private String message;
 	
-	public FielMessage() {
+	public FieldMessage() {
 		
 	}
 
-	public FielMessage(String fielName, String message) {
+	public FieldMessage(String fielName, String message) {
 		super();
 		this.fielName = fielName;
 		this.message = message;
