@@ -37,6 +37,9 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfoucnpj;
 	private Integer tipo;
+	
+	@JsonIgnore
+	private String senha;
 
 	
 	
@@ -55,13 +58,14 @@ public class Cliente implements Serializable {
 
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfoucnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfoucnpj, TipoCliente tipo,String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfoucnpj = cpfoucnpj;
 		this.tipo =(tipo==null)? null:  tipo.getCod();
+		this.senha=senha;
 	}
 
 	public Integer getId() {
@@ -102,6 +106,16 @@ public class Cliente implements Serializable {
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
+	}
+	
+	
+
+	public String getSenha() {
+	    return senha;
+	}
+
+	public void setSenha(String senha) {
+	    this.senha = senha;
 	}
 
 	public List<Endereco> getEnderecos() {
