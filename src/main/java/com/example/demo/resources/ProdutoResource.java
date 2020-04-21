@@ -1,7 +1,7 @@
 package com.example.demo.resources;
 
 
-import java.net.URLDecoder;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.Categoria;
+
 import com.example.demo.domain.Produto;
-import com.example.demo.dto.CategoriaDTO;
+
 import com.example.demo.dto.ProdutoDTO;
 import com.example.demo.resources.utils.URL;
 import com.example.demo.services.ProdutoService;
