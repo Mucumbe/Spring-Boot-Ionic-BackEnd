@@ -13,10 +13,8 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import com.example.demo.Repositories.ClienteRepository;
 import com.example.demo.domain.Cliente;
-import com.example.demo.domain.enums.TipoCliente;
 import com.example.demo.dto.ClienteDTO;
 import com.example.demo.resources.exception.FieldMessage;
-import com.example.demo.services.validation.utils.BR;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> 
 {

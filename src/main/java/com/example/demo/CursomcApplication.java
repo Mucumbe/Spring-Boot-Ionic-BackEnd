@@ -1,20 +1,16 @@
 package com.example.demo;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.example.demo.services.S3Service;
 
 
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
     
-    @Autowired
-    private S3Service s3Service;
+   
     
 
 	
@@ -26,7 +22,7 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		s3Service.uploadFile("C:\\Temp\\fotos\\computador.jpg");
+		
 		
 
 	}
