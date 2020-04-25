@@ -33,101 +33,108 @@ public class ClienteService {
     @Autowired
     private BCryptPasswordEncoder pe;
 
-	@Autowired
-	private ClienteRepository repo;
-	
-	@Autowired
-	private EnderecoRepository enderecoRepository;
+    @Autowired
+    private ClienteRepository repo;
 
-	@Autowired
-	private S3Service s3Service;
-	
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
-	public Cliente find(Integer id) {
-	    
-	    UserSS user= UserService.authenticated();
-	    if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId()))
-		throw new AuthorizationException("Acesso Negado");
-	    
-		Optional<Cliente> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objecto não encontrado! ID: " + id + ", Tipo" + Cliente.class.getName()));
-	}
+    @Autowired
+    private S3Service s3Service;
 
-	@Transactional
-	public Cliente insert(Cliente obj) {
-		obj.setId(null);
-		obj=repo.save(obj);
-		enderecoRepository.saveAll(obj.getEnderecos());
-		return obj;
-		
-	}
+    public Cliente find(Integer id) {
 
-	public Cliente update(Cliente obj) {
-		Cliente newObj = find(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(obj);
-	}
+	UserSS user = UserService.authenticated();
+	if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId()))
+	    throw new AuthorizationException("Acesso Negado");
 
-	public void delete(Integer id) {
-		find(id);
+	Optional<Cliente> obj = repo.findById(id);
+	return obj.orElseThrow(() -> new ObjectNotFoundException(
+		"Objecto não encontrado! ID: " + id + ", Tipo" + Cliente.class.getName()));
+    }
 
-		try {
-			repo.deleteById(id);
-		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Nao é Possivel Excluir porque ha Pedidos Relacionados relacionadas");
+    @Transactional
+    public Cliente insert(Cliente obj) {
+	obj.setId(null);
+	obj = repo.save(obj);
+	enderecoRepository.saveAll(obj.getEnderecos());
+	return obj;
 
-		}
+    }
+
+    public Cliente update(Cliente obj) {
+	Cliente newObj = find(obj.getId());
+	updateData(newObj, obj);
+	return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+	find(id);
+
+	try {
+	    repo.deleteById(id);
+	} catch (DataIntegrityViolationException e) {
+	    throw new DataIntegrityException("Nao é Possivel Excluir porque ha Pedidos Relacionados relacionadas");
 
 	}
 
-	public List<Cliente> findAll() {
+    }
 
-		return repo.findAll();
-	}
+    public List<Cliente> findAll() {
 
-	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+	return repo.findAll();
+    }
 
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+    public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 
-		return repo.findAll(pageRequest);
-	}
+	PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
-	public Cliente fromDTO(ClienteDTO objDto) {
+	return repo.findAll(pageRequest);
+    }
 
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null,null);
-	}
+    public Cliente fromDTO(ClienteDTO objDto) {
 
-	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfoucnpj(),
-				TipoCliente.toEnum(objDto.getTipo()),pe.encode(objDto.getSenha()));
+	return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null);
+    }
 
-		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+    public Cliente fromDTO(ClienteNewDTO objDto) {
+	Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfoucnpj(),
+		TipoCliente.toEnum(objDto.getTipo()), pe.encode(objDto.getSenha()));
 
-		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
-				objDto.getBairro(), objDto.getCep(), cli, cid);
+	Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 
-		cli.getEnderecos().add(end);
-		cli.getTelefones().add(objDto.getTelefone1());
+	Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
+		objDto.getBairro(), objDto.getCep(), cli, cid);
 
-		if (objDto.getTelefone2() != null)
-			cli.getTelefones().add(objDto.getTelefone2());
-		
-		if (objDto.getTelefone3() != null)
-			cli.getTelefones().add(objDto.getTelefone3());
-		
-		return cli;
-		
+	cli.getEnderecos().add(end);
+	cli.getTelefones().add(objDto.getTelefone1());
 
-	}
+	if (objDto.getTelefone2() != null)
+	    cli.getTelefones().add(objDto.getTelefone2());
 
-	private void updateData(Cliente newObj, Cliente obj) {
+	if (objDto.getTelefone3() != null)
+	    cli.getTelefones().add(objDto.getTelefone3());
 
-		newObj.setNome(obj.getNome());
-		newObj.setEmail(obj.getEmail());
-	}
-	
-	public URI uploadProfilePicture(MultipartFile multipartFile) {
-	    return s3Service.uploadFile(multipartFile);
-	}
+	return cli;
+
+    }
+
+    private void updateData(Cliente newObj, Cliente obj) {
+
+	newObj.setNome(obj.getNome());
+	newObj.setEmail(obj.getEmail());
+    }
+
+    public URI uploadProfilePicture(MultipartFile multipartFile) {
+	UserSS user = UserService.authenticated();
+
+	if (user == null)
+	    throw new AuthorizationException("Acesso Negado");
+	URI uri = s3Service.uploadFile(multipartFile);
+	Cliente cli= find(user.getId());
+	cli.setImageUri(uri.toString());
+	repo.save(cli);
+
+	return uri;
+    }
 }
