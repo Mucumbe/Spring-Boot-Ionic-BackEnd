@@ -40,7 +40,7 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfoucnpj;
 	private Integer tipo;
-	private String imageUri;
+	
 	
 	@JsonIgnore
 	private String senha;
@@ -185,13 +185,7 @@ public class Cliente implements Serializable {
 		return true;
 	}
 
-	public String getImageUri() {
-	    return imageUri;
-	}
-
-	public void setImageUri(String imageUri) {
-	    this.imageUri = imageUri;
-	}
+	
 
 	
 	
