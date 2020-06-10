@@ -63,7 +63,7 @@ public class CategotiaResource {
 
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		List<Categoria> list = service.findAll();
